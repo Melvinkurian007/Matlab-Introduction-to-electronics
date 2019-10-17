@@ -1,0 +1,45 @@
+clc;
+clear all;
+close all;
+%DFT
+x= input("enter the sequence");
+N=length(x);
+for K=1:N
+    X(K)=0
+    for n=1:N
+      X(K)=X(K)+x(n)*exp((-i*2*pi*(K-1)*(n-1))/N);
+    end
+end
+
+subplot(2,2,1);
+stem(X);
+xlabel("K");
+ylabel("X(K)");
+title("DFT of x(n) ");
+
+subplot(2,2,2)
+stem(abs(X));
+xlabel("K");
+ylabel("magnitude,|x(k)|");
+title("magnitude plot of X(K)");
+
+subplot(2,2,3)
+stem(angle(X));
+xlabel("K");
+ylabel("phase,X(K)");
+title("phase plot of X(K)");
+
+
+%  iDFT
+x1=X;
+for n=1:N
+    x1(n)=0
+    for K=1:N
+        x1(n)=x1(n)+X(K)*exp((i*2*pi*(K-1)*(n-1))/N) /N;
+    end
+end
+subplot(2,2,4)
+stem(real(x1));
+xlabel("n");
+ylabel("magnitude,|x(n)|");
+title("IDFT of x(n) ");
